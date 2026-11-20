@@ -29,3 +29,7 @@ Run `node tests/smoke.cjs` to verify manifest restrictions, dashboard opening, A
 ## Browser smoke test (2026-11-19)
 
 The extension was loaded in an isolated Microsoft Edge 157 profile via Playwright. Its Manifest V3 service worker started, dashboard.html opened, and six iframe tiles were present. This confirms basic UI loading, not successful embedding or login to every third-party AI site. Google Chrome isolated test did not expose an extension service worker in this environment. Existing browser sessions were not used.
+
+## Final UI checks (2026-11-20)
+
+Isolated Edge/Playwright test: dashboard loaded six iframe elements; layout buttons 2x2, 3 columns, and Focus were clickable; all six configured AI URLs were present; no page-level JavaScript errors were captured. This does **not** guarantee third-party iframe rendering or authentication, because sites can block embedding. The local original extension was not enabled for testing.
