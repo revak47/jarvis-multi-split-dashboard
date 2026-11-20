@@ -224,9 +224,7 @@ const storage = {
 
 // Inicializacao
 document.addEventListener("DOMContentLoaded", async () => {
-  if (typeof chrome !== "undefined" && chrome.runtime && chrome.runtime.sendMessage) {
-    chrome.runtime.sendMessage({ action: "fix_cookies" }).catch(() => {});
-  }
+
   document.documentElement.style.setProperty("--gap", GAP + "px");
   await loadState();
   montaSeletorLayout();
@@ -573,7 +571,8 @@ function initEventListeners() {
 
 // Alt+Shift+H do navegador (vem do background) e troca de layout feita pelo popup
 async function escutaNavegador() {
-  if (typeof browser === "undefined" || !browser.runtime) return;
+  const browser = typeof globalThis.browser !== "undefined" ? globalThis.browser : chrome;
+  if (!browser.runtime) return;
   const eu = await browser.tabs.getCurrent();
   browser.runtime.onMessage.addListener((msg) => {
     if (msg && msg.tipo === "alternar-barra" && eu && msg.tabId === eu.id) toggleTopbar();
