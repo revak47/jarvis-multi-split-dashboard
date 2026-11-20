@@ -20,3 +20,8 @@ Experimental. Some embedded AI sites may not work due to their own security poli
 ## Contributing
 
 Issues and pull requests welcome. Please do not propose removing CSP, X-Frame-Options, or weakening cookie settings to make iframe embedding work.
+
+## Validation
+
+Run `node tests/smoke.cjs` to verify manifest restrictions, dashboard opening, AI message dispatch and absence of cookie-rewrite requests. Syntax: `node --check dashboard.js`. The browser-based visual smoke test is still pending; headless Chrome terminated before its debugging endpoint became available on the author's Windows machine.
+
