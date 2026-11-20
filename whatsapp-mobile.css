@@ -1,0 +1,43 @@
+/* Jarvis Multi-Split - WhatsApp Mobile Mode */
+/* Quando a largura da tela for estreita (modo split / mobile), esconde a barra lateral ao abrir conversa */
+
+@media screen and (max-width: 960px) {
+  /* Quando uma conversa esta aberta (#main existe no DOM) */
+  div#app:has(div#main) div#side {
+    display: none !important;
+  }
+  div#app:has(div#main) div#main {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Quando nenhuma conversa esta aberta */
+  div#app:not(:has(div#main)) div#side {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Botao de voltar customizado injetado no header da conversa */
+  .jarvis-wa-back-btn {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    margin-right: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e9edef;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    transition: background 0.15s ease;
+    flex-shrink: 0;
+  }
+  .jarvis-wa-back-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+}

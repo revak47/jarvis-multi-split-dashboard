@@ -1,0 +1,124 @@
+/* JARVIS MULTI-SPLIT - Visual Tune 2026-11-11
+   Camada de apresentação: nenhuma lógica, permissão ou layout salvo é alterado.
+   Para reverter: remover o link visual-tune.css de dashboard.html.
+*/
+:root {
+  --bg: #071115;
+  --bg-elev: #0d1d25;
+  --bg-header: #132933;
+  --bg-hover: rgba(109, 227, 220, .10);
+  --borda: #29424d;
+  --borda-forte: #406773;
+  --texto: #edf8fa;
+  --texto-2: #bed1d7;
+  --texto-3: #91adb8;
+  --accent: #58dcd3;
+  --accent-suave: rgba(88, 220, 211, .16);
+  --barra-h: 54px;
+  --cab-h: 30px;
+  --raio: 10px;
+}
+body { font-family: "Segoe UI Variable", "Segoe UI", Inter, system-ui, sans-serif; }
+.top-bar {
+  gap: 10px;
+  padding: 0 12px;
+  background: linear-gradient(180deg, #102a33 0%, #0b1b23 100%);
+  border-bottom: 1px solid #365761;
+  box-shadow: inset 0 -1px 0 rgba(88, 220, 211, .07);
+}
+.top-bar-left { gap: 9px; }
+.brand { gap: 8px; font-size: 13px; letter-spacing: .08px; }
+.brand .logo { width: 22px; height: 22px; }
+.brand .title { color: #8ceae2; font-weight: 700; }
+.btn-sidebar-toggle { width: 32px; height: 32px; border-radius: 8px; }
+.spaces-nav { height: 40px; max-width: 470px; gap: 7px; margin-left: 2px; }
+.spaces-pills { gap: 7px; }
+.space-circle-btn {
+  width: 31px !important; min-width: 31px !important; max-width: 31px !important;
+  height: 31px !important; min-height: 31px !important; max-height: 31px !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+}
+.space-circle-btn:hover { border-color: #71e4dc; }
+.active-space-title { color: var(--texto-2); }
+.ai-broadcast-container { margin: 0 6px; max-width: 460px; min-width: 160px; }
+.ai-broadcast-bar {
+  height: 36px;
+  padding: 0 7px 0 11px;
+  gap: 8px;
+  background: rgba(1, 12, 18, .53);
+  border-color: #34545f;
+  border-radius: 9px;
+}
+.ai-broadcast-bar:focus-within {
+  border-color: #58dcd3;
+  background: rgba(3, 26, 32, .82);
+  box-shadow: 0 0 0 2px rgba(88, 220, 211, .19);
+}
+.ai-broadcast-icon { color: #e7bb6d; filter: drop-shadow(0 0 5px rgba(231, 187, 109, .24)); }
+#ai-broadcast-input { font-size: 12.5px; letter-spacing: .05px; }
+#ai-broadcast-input::placeholder { color: #a4bcc3; font-size: 11.5px; }
+.btn-ai-send {
+  min-height: 27px; height: 27px; padding: 0 11px;
+  border-radius: 6px; font-size: 11.5px; font-weight: 700;
+}
+.top-bar-right { gap: 8px; min-width: 0; }
+.layout-selector {
+  gap: 3px; padding: 3px;
+  background: rgba(3, 15, 21, .72);
+  border-color: #31515b; border-radius: 9px;
+}
+.btn-layout { min-height: 31px; padding: 5px 8px; border-radius: 6px; font-size: 11.5px; }
+.btn-layout.active { background: rgba(88, 220, 211, .19); color: #a0eee5; }
+.actions { gap: 6px; }
+.top-bar .btn { height: 32px; border-radius: 8px; font-size: 11.5px; }
+.top-bar .btn-icon { width: 32px; }
+.btn-primary { color: #062328; }
+.btn-primary:hover { background: #a3f0e5; }
+.btn-secondary:hover { background: #1b3540; border-color: #537b86; }
+.top-bar .btn-ghost:hover { background: rgba(255, 255, 255, .085); }
+.tile-header {
+  background: linear-gradient(180deg, rgba(25, 48, 59, .93), rgba(12, 29, 38, .96));
+  border-bottom-color: #2b4852;
+}
+.tile-favicon { width: 16px; height: 16px; }
+.tile-title { font-size: 12.5px; font-weight: 600; color: #eaf7fa; }
+.tile-controls { opacity: .74; gap: 2px; }
+.tile-card:hover .tile-controls, .tile-card.maximized .tile-controls { opacity: 1; }
+.btn-tile-action { width: 24px; height: 24px; }
+.btn-zoom { width: 20px; height: 24px; }
+.zoom-level { color: #b5d0d8; font-size: 11px; }
+.sidebar-drawer { background: #0c1e26; border-right-color: #31505a; }
+.sidebar-header { border-bottom-color: #2a4652; }
+.sidebar-title { color: #e6f6f9; }
+.dropdown-menu, .modal-card { border-color: #395e68; }
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid #e6ba6b;
+  outline-offset: 2px;
+}
+@media (max-width: 1500px) {
+  .top-bar { padding: 0 8px; gap: 7px; }
+  .spaces-nav { max-width: 270px; }
+  .ai-broadcast-container { max-width: 335px; margin: 0 2px; }
+  .btn-layout { padding: 5px 6px; }
+  .top-bar .btn { padding-left: 8px; padding-right: 8px; }
+}
+@media (max-width: 1160px) {
+  .brand .title, #btn-reset-sizes, .btn-layout .nome { display: none; }
+  .ai-broadcast-container { min-width: 110px; max-width: 270px; }
+  .spaces-nav { max-width: 175px; }
+  .top-bar-right { gap: 4px; }
+}
+@media (max-width: 790px) {
+  .top-bar { gap: 5px; }
+  .spaces-nav { max-width: 100px; }
+  .ai-broadcast-container { min-width: 85px; max-width: 190px; }
+  .btn-layout { padding: 5px; }
+  .layout-selector { max-width: 120px; }
+  #btn-presets { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .top-bar .btn, .btn-layout, .tile-controls { transition: none; }
+}

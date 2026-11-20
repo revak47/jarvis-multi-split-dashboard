@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Jarvis Multi-Split</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 260px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f1118;
+      color: #f1f5f9;
+      padding: 12px;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #232738;
+    }
+    .header img { width: 20px; height: 20px; }
+    .header h1 { font-size: 13px; font-weight: 600; color: #38bdf8; }
+    .btn-main {
+      width: 100%;
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 12px;
+      transition: background 0.15s ease;
+    }
+    .btn-main:hover { background: #7dd3fc; }
+    .section-title {
+      font-size: 10px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+    .layouts-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+    .btn-layout-quick {
+      background: #1a1e2d;
+      border: 1px solid #282f45;
+      color: #cbd5e1;
+      padding: 6px;
+      border-radius: 4px;
+      font-size: 11px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn-layout-quick:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+    .footer {
+      font-size: 10px;
+      color: #64748b;
+      text-align: center;
+      margin-top: 8px;
+    }
+    <!-- JARVIS VISUAL TUNE POPUP 2026-11-11 -->
+    body { width: 286px; background: linear-gradient(180deg,#102b35 0%,#07171e 100%); color: #ebf8f9; padding: 16px; }
+    .header { margin-bottom: 15px; padding-bottom: 11px; border-bottom: 1px solid #355661; }
+    .header img { width: 25px; height: 25px; }
+    .header h1 { color: #85e7de; font-size: 14px; letter-spacing: .1px; }
+    .btn-main { padding: 11px 12px; background: #58dcd3; color: #09292c; border-radius: 9px; font-size: 13px; box-shadow: 0 3px 14px rgba(22,160,146,.13); }
+    .btn-main:hover { background: #a3f0e5; }
+    .section-title { color: #b1ccd2; font-size: 11px; margin-bottom: 8px; }
+    .layouts-grid { gap: 6px; margin-bottom: 14px; }
+    .btn-layout-quick { padding: 9px 5px; border-radius: 7px; font-size: 11.5px; background: #14303a; border-color: #355965; color: #e2f3f5; }
+    .btn-layout-quick:hover { background: rgba(88,220,211,.14); border-color: #58dcd3; color: #9ef0e6; }
+    button:focus-visible { outline: 2px solid #e9b96b; outline-offset: 2px; }
+    .footer { color: #8faeb8; font-size: 10.5px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="icons/icon32.png" alt="Jarvis">
+    <h1>Jarvis Multi-Split</h1>
+  </div>
+
+  <button id="btn-open-full" class="btn-main">
+    Abrir o painel
+  </button>
+
+  <div class="section-title">Abrir num layout</div>
+  <div class="layouts-grid">
+    <button class="btn-layout-quick" data-layout="grid-2x2">2x2</button>
+    <button class="btn-layout-quick" data-layout="focus-right">Foco</button>
+    <button class="btn-layout-quick" data-layout="columns-2">2 col</button>
+    <button class="btn-layout-quick" data-layout="columns-3">3 col</button>
+    <button class="btn-layout-quick" data-layout="columns-4">4 col</button>
+    <button class="btn-layout-quick" data-layout="grid-3x2">3x2</button>
+    <button class="btn-layout-quick" data-layout="grid-2x3">2x3</button>
+    <button class="btn-layout-quick" data-layout="grid-4x2">4x2</button>
+  </div>
+
+  <div class="footer"><b>Alt+Shift+Z</b> abre o painel &middot; <b>Alt+Shift+H</b> mostra ou esconde a barra</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

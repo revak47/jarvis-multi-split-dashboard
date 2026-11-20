@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jarvis Multi-Split</title>
+  <link rel="icon" href="icons/icon32.png">
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="visual-tune.css">
+</head>
+<body>
+  <!-- Barra superior -->
+  <header id="top-bar" class="top-bar">
+    <div class="top-bar-left">
+      <button id="btn-toggle-sidebar" class="btn btn-icon btn-sidebar-toggle" title="Abrir/fechar atalhos e links">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="9" y1="3" x2="9" y2="21"/></svg>
+      </button>
+
+      <div class="brand">
+        <img src="icons/icon32.png" alt="" class="logo">
+        <span class="title">Multi-Split</span>
+      </div>
+
+      <!-- Abas/Pills de Espaços diretamente na barra superior -->
+      <nav id="spaces-nav" class="spaces-nav" aria-label="Espaços">
+        <div id="spaces-pills" class="spaces-pills"></div>
+        <button id="btn-add-space-pill" class="space-circle-btn btn-space-add" title="Criar novo espaço">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <span id="active-space-title" class="active-space-title"></span>
+      </nav>
+    </div>
+
+    <!-- Centro: Barra de Envio Simultâneo para IAs (Broadcast) -->
+    <div id="ai-broadcast-container" class="ai-broadcast-container">
+      <div class="ai-broadcast-bar">
+        <span class="ai-broadcast-icon" title="Enviar prompt simultaneamente para todas as IAs abertas no Multi-Split">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        </span>
+        <input type="text" id="ai-broadcast-input" placeholder="Enviar prompt para todas as IAs abertas (Enter)..." autocomplete="off">
+        <button id="btn-ai-broadcast-send" class="btn btn-primary btn-ai-send" title="Enviar para todas as IAs">Enviar ↵</button>
+      </div>
+    </div>
+
+    <!-- Direita: Seletor de layout e controles -->
+    <div class="top-bar-right">
+      <nav id="layout-selector" class="layout-selector" aria-label="Layout"></nav>
+
+      <div class="actions">
+        <button id="btn-reset-sizes" class="btn btn-ghost" title="Voltar altura e largura de todas as telas ao padrão">Padrão</button>
+        <button id="btn-add-tile" class="btn btn-primary" title="Adicionar uma tela">+ Tela</button>
+
+        <div class="presets-dropdown">
+          <button id="btn-presets" class="btn btn-secondary" title="Gerenciar espaços salvos">
+            <span id="btn-presets-label">Opções</span> ▾
+          </button>
+          <div id="presets-menu" class="dropdown-menu hidden">
+            <div class="dropdown-header">Gerenciar Espaço</div>
+            <div id="presets-actions">
+              <button id="btn-view-all-spaces" class="dropdown-item">▦ Ver todos os espaços lado a lado (1 por 1)</button>
+              <button id="btn-update-preset" class="dropdown-item hidden">↻ Salvar alterações no espaço atual</button>
+              <button id="btn-save-preset" class="dropdown-item">+ Salvar como novo espaço</button>
+              <button id="btn-leave-preset" class="dropdown-item hidden">✕ Sair do espaço (modo avulso)</button>
+            </div>
+            <div class="dropdown-divider"></div>
+            <div class="dropdown-header">Lista de espaços</div>
+            <div id="presets-list" class="presets-list"></div>
+          </div>
+        </div>
+
+        <button id="btn-compact-mode" class="btn btn-icon" title="Esconder a barra (Alt+Shift+H)"></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Faixa que traz a barra de volta -->
+  <button id="floating-reveal" class="floating-reveal" title="Mostrar a barra (Alt+Shift+H)">
+    <span class="reveal-pill"></span>
+  </button>
+
+  <!-- Corpo com Barra Lateral Retrátil + Grade de Telas -->
+  <div id="workspace-layout" class="workspace-layout">
+    <!-- Barra lateral retrátil de links e categorias -->
+    <aside id="sidebar-drawer" class="sidebar-drawer collapsed">
+      <div class="sidebar-header">
+        <div class="sidebar-title">
+          <span>Links & Atalhos</span>
+        </div>
+        <button id="btn-close-sidebar" class="btn-sidebar-close" title="Recolher barra lateral">&lsaquo;</button>
+      </div>
+      <div id="sidebar-categories" class="sidebar-categories">
+        <!-- Renderizado dinamicamente via dashboard.js -->
+      </div>
+      <div class="sidebar-footer">
+        <button id="btn-add-sidebar-link" class="btn-sidebar-action">+ Novo Link</button>
+        <button id="btn-add-sidebar-cat" class="btn-sidebar-action">+ Nova Categoria</button>
+      </div>
+    </aside>
+
+    <main id="area" class="area">
+      <div id="grid-container" class="grid-container layout-grid-2x2"></div>
+      <div id="vazio" class="vazio" hidden>
+        <p>Nenhuma tela aberta.</p>
+        <button id="btn-add-vazio" class="btn btn-primary">+ Adicionar a primeira tela</button>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <div id="snap-indicator" class="snap-indicator hidden"></div>
+
+  <!-- Janela de adicionar / editar tela -->
+  <div id="modal-add" class="modal-overlay hidden">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-header">
+        <h3 id="modal-title">Adicionar tela</h3>
+        <button id="modal-close" class="modal-close-btn" title="Fechar">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="modal-space-select-wrapper" class="modal-field hidden">
+          <label for="select-modal-space">Espaço de destino</label>
+          <select id="select-modal-space" class="modal-select"></select>
+        </div>
+        <label for="input-site-url">Endereço (URL)</label>
+        <input type="url" id="input-site-url" placeholder="https://exemplo.com ou escolha um atalho abaixo" autocomplete="off">
+
+        <label for="input-site-title">Nome (opcional)</label>
+        <input type="text" id="input-site-title" placeholder="Ex: Notion, Telegram, Painel" autocomplete="off">
+
+        <div class="quick-shortcuts-header">
+          <span class="quick-shortcuts-title">Atalhos</span>
+          <div class="quick-shortcuts-actions">
+            <button type="button" id="btn-toggle-edit-atalhos" class="btn-link-action" title="Editar ou excluir atalhos">✏️ Gerenciar</button>
+            <button type="button" id="btn-add-atalho" class="btn-link-action" title="Salvar o endereço digitado acima como atalho">+ Salvar como atalho</button>
+          </div>
+        </div>
+        <div id="quick-shortcuts-list" class="quick-shortcuts"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-modal-cancel" class="btn btn-secondary">Cancelar</button>
+        <button id="btn-modal-save" class="btn btn-primary">Adicionar</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js"></script>
+</body>
+</html>
